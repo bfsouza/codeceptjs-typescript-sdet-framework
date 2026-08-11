@@ -113,18 +113,42 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm ci
+      - name: Check API artifact exists
+        id: check_api
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const artifacts = await github.rest.actions.listArtifactsForRepo({ owner: context.repo.owner, repo: context.repo.repo });
+            const found = artifacts.data.artifacts.some(a => a.name === 'allure-results-api');
+            core.setOutput('found', found ? 'true' : 'false');
       - name: Download API Allure results
-        continue-on-error: true
+        if: steps.check_api.outputs.found == 'true'
         uses: actions/download-artifact@v4
         with:
           name: allure-results-api
+      - name: Check Web artifact exists
+        id: check_web
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const artifacts = await github.rest.actions.listArtifactsForRepo({ owner: context.repo.owner, repo: context.repo.repo });
+            const found = artifacts.data.artifacts.some(a => a.name === 'allure-results-web');
+            core.setOutput('found', found ? 'true' : 'false');
       - name: Download Web Allure results
-        continue-on-error: true
+        if: steps.check_web.outputs.found == 'true'
         uses: actions/download-artifact@v4
         with:
           name: allure-results-web
+      - name: Check Hybrid artifact exists
+        id: check_hybrid
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const artifacts = await github.rest.actions.listArtifactsForRepo({ owner: context.repo.owner, repo: context.repo.repo });
+            const found = artifacts.data.artifacts.some(a => a.name === 'allure-results-hybrid');
+            core.setOutput('found', found ? 'true' : 'false');
       - name: Download Hybrid Allure results
-        continue-on-error: true
+        if: steps.check_hybrid.outputs.found == 'true'
         uses: actions/download-artifact@v4
         with:
           name: allure-results-hybrid
