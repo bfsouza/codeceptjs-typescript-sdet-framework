@@ -6,7 +6,7 @@
 ![NodeJS](https://img.shields.io/badge/Node.js-18%2B-green?style=flat&logo=nodedotjs)
 ![Docker](https://img.shields.io/badge/Docker-Supported-blue?style=flat&logo=docker)
 
-> A hybrid test automation framework (E2E & API) built with **CodeceptJS** and **TypeScript**. It demonstrates advanced SDET engineering practices, including hybrid testing strategies (bypassing UI login via API), Page Object Model (POM), schema validation, and an integrated CI/CD pipeline.
+> A hybrid test automation framework (E2E & API) built with **CodeceptJS** and **TypeScript**. It demonstrates SDET engineering practices, including hybrid testing strategies (bypassing UI login via API), Page Object Model (POM), schema validation, and an integrated CI/CD pipeline.
 
 ---
 
