@@ -24,6 +24,8 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
       - name: Run API feature suite
         run: npm run test:api
       - name: Upload API Allure results
