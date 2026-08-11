@@ -14,7 +14,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
       - name: Cache node modules
         uses: actions/cache@v4
         with:
@@ -29,6 +29,7 @@ jobs:
       - name: Run API feature suite
         run: npm run test:api
       - name: Upload API Allure results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results-api
@@ -41,7 +42,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
       - name: Cache node modules
         uses: actions/cache@v4
         with:
@@ -56,6 +57,7 @@ jobs:
       - name: Run Web feature suite
         run: npm run test:web
       - name: Upload Web Allure results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results-web
@@ -68,7 +70,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
       - name: Cache node modules
         uses: actions/cache@v4
         with:
@@ -83,6 +85,7 @@ jobs:
       - name: Run Hybrid feature suite
         run: npm run test:hybrid
       - name: Upload Hybrid Allure results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results-hybrid
@@ -96,7 +99,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
       - name: Cache node modules
         uses: actions/cache@v4
         with:
