@@ -33,9 +33,8 @@ This repository utilizes a modular architecture focused on reusability, maintain
 ├── features/            # Gherkin feature files
 ├── step_definitions/    # Gherkin step definitions
 ├── src/
-│   ├── api/             # API helper and typings
+│   ├── api/             # API helpers and typings
 │   ├── web/             # Page Objects and UI components
-│   └── utils/           # Helpers, data generators, and utilities
 └── codecept.conf.ts     # Main CodeceptJS configuration file
 ```
 
@@ -85,6 +84,9 @@ npm run test:hybrid
 
 # Print steps while running Gherkin features
 npm run test:ui
+
+# Generate the Allure report from the latest results
+npm run report
 ```
 
 ---
