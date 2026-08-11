@@ -49,6 +49,8 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
       - name: Run Web feature suite
         run: npm run test:web
       - name: Upload Web Allure results
@@ -74,6 +76,8 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
       - name: Run Hybrid feature suite
         run: npm run test:hybrid
       - name: Upload Hybrid Allure results
