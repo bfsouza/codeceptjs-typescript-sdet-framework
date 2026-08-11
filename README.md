@@ -30,14 +30,12 @@ This repository utilizes a modular architecture focused on reusability, maintain
 ```text
 ├── .github/workflows/   # CI/CD Workflows (GitHub Actions)
 ├── config/              # Global & Environment configurations
+├── features/            # Gherkin feature files
+├── step_definitions/    # Gherkin step definitions
 ├── src/
-│   ├── api/             # HTTP clients and typings for API endpoints
+│   ├── api/             # API helper and typings
 │   ├── web/             # Page Objects and UI components
 │   └── utils/           # Helpers, data generators, and utilities
-├── tests/
-│   ├── api/             # API-only test suite
-│   ├── web/             # End-to-End (E2E) UI test suite
-│   └── hybrid/          # Hybrid test suite (API + UI)
 └── codecept.conf.ts     # Main CodeceptJS configuration file
 ```
 
@@ -73,19 +71,19 @@ npm install
 ### 3. Run the Tests
 
 ```bash
-# Run all tests in headless mode
+# Run all Gherkin feature tests
 npm run test
 
-# Run API tests only
+# Run API feature tests only
 npm run test:api
 
-# Run Web (UI) tests only
+# Run Web (UI) feature tests only
 npm run test:web
 
-# Run Hybrid tests only
+# Run Hybrid feature tests only
 npm run test:hybrid
 
-# Open CodeceptJS UI Mode
+# Print steps while running Gherkin features
 npm run test:ui
 ```
 

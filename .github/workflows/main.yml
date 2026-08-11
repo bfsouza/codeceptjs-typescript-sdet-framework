@@ -1,0 +1,127 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '18'
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
+      - name: Run API feature suite
+        run: npm run test:api
+      - name: Upload API Allure results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-api
+          path: output/allure-results
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '18'
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Web feature suite
+        run: npm run test:web
+      - name: Upload Web Allure results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-web
+          path: output/allure-results
+
+  hybrid:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '18'
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Hybrid feature suite
+        run: npm run test:hybrid
+      - name: Upload Hybrid Allure results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-hybrid
+          path: output/allure-results
+
+  allure-report:
+    needs: [api, web, hybrid]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '18'
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
+      - name: Download API Allure results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results-api
+      - name: Download Web Allure results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results-web
+      - name: Download Hybrid Allure results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results-hybrid
+      - name: Merge Allure results
+        run: |
+          mkdir -p output/allure-results
+          cp -R allure-results-api/* output/allure-results/ || true
+          cp -R allure-results-web/* output/allure-results/ || true
+          cp -R allure-results-hybrid/* output/allure-results/ || true
+      - name: Generate Allure report
+        run: npm run report
+      - name: Upload Allure report
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: output/allure-report

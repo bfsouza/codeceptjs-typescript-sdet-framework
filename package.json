@@ -1,0 +1,29 @@
+{
+  "name": "codeceptjs-typescript-sdet-framework",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hybrid CodeceptJS + TypeScript automation framework for ServeRest",
+  "scripts": {
+    "test": "npx codeceptjs run --config codecept.conf.ts './features/*.feature'",
+    "test:api": "npx codeceptjs run --config codecept.conf.ts './features/api.feature'",
+    "test:web": "npx codeceptjs run --config codecept.conf.ts './features/web.feature'",
+    "test:hybrid": "npx codeceptjs run --config codecept.conf.ts './features/hybrid.feature'",
+    "test:ui": "npx codeceptjs run --config codecept.conf.ts './features/*.feature' --steps",
+    "docker:build": "docker build -t codeceptjs-sdet .",
+    "docker:test": "docker run --rm codeceptjs-sdet",
+    "docker:run": "docker run --rm -v $(pwd):/usr/src/app -w /usr/src/app codeceptjs-sdet npm test",
+    "report": "npx allure generate output/allure-results --clean -o output/allure-report"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.0.0",
+    "codeceptjs": "^3.4.0",
+    "playwright": "^1.44.0"
+  },
+  "devDependencies": {
+    "@codeceptjs/allure-legacy": "^1.0.2",
+    "@types/node": "^20.11.0",
+    "allure-commandline": "^2.15.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.6.0"
+  }
+}
