@@ -34,6 +34,7 @@ jobs:
         with:
           name: allure-results-api
           path: output/allure-results
+          if-no-files-found: warn
 
   web:
     runs-on: ubuntu-latest
@@ -62,6 +63,7 @@ jobs:
         with:
           name: allure-results-web
           path: output/allure-results
+          if-no-files-found: warn
 
   hybrid:
     runs-on: ubuntu-latest
@@ -90,8 +92,10 @@ jobs:
         with:
           name: allure-results-hybrid
           path: output/allure-results
+          if-no-files-found: warn
 
   allure-report:
+    if: always()
     needs: [api, web, hybrid]
     runs-on: ubuntu-latest
     steps:
@@ -110,14 +114,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Download API Allure results
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           name: allure-results-api
       - name: Download Web Allure results
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           name: allure-results-web
       - name: Download Hybrid Allure results
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           name: allure-results-hybrid
