@@ -28,6 +28,12 @@ jobs:
         run: npx playwright install chromium
       - name: Run API feature suite
         run: npm run test:api
+      - name: Ensure allure results folder exists
+        run: |
+          mkdir -p output/allure-results
+          if [ -z "$(ls -A output/allure-results)" ]; then
+            touch output/allure-results/.placeholder
+          fi
       - name: Upload API Allure results
         if: always()
         uses: actions/upload-artifact@v4
@@ -57,6 +63,12 @@ jobs:
         run: npx playwright install chromium
       - name: Run Web feature suite
         run: npm run test:web
+      - name: Ensure allure results folder exists
+        run: |
+          mkdir -p output/allure-results
+          if [ -z "$(ls -A output/allure-results)" ]; then
+            touch output/allure-results/.placeholder
+          fi
       - name: Upload Web Allure results
         if: always()
         uses: actions/upload-artifact@v4
@@ -86,6 +98,12 @@ jobs:
         run: npx playwright install chromium
       - name: Run Hybrid feature suite
         run: npm run test:hybrid
+      - name: Ensure allure results folder exists
+        run: |
+          mkdir -p output/allure-results
+          if [ -z "$(ls -A output/allure-results)" ]; then
+            touch output/allure-results/.placeholder
+          fi
       - name: Upload Hybrid Allure results
         if: always()
         uses: actions/upload-artifact@v4
