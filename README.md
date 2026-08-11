@@ -61,7 +61,7 @@ This repository utilizes a modular architecture focused on reusability, maintain
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR-USERNAME/codeceptjs-typescript-sdet-framework.git
+git clone https://github.com/bfsouza/codeceptjs-typescript-sdet-framework.git
 cd codeceptjs-typescript-sdet-framework
 ```
 
